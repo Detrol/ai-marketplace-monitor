@@ -356,7 +356,7 @@ class MonitorConfig(BaseConfig):
             return
         if not isinstance(self.user_data_dir, str):
             raise ValueError(f"Item {hilight(self.name)} user_data_dir must be a string.")
-        
+
         # Create directory if it doesn't exist
         from pathlib import Path
         Path(self.user_data_dir).mkdir(parents=True, exist_ok=True)

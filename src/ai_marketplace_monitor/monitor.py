@@ -2,7 +2,7 @@ import sys
 import time
 from logging import Logger
 from pathlib import Path
-from typing import ClassVar, List
+from typing import Any, ClassVar, List
 
 import humanize
 import inflect
@@ -394,33 +394,33 @@ class MarketplaceMonitor:
         # Open a new browser page.
         self.load_config_file()
         assert self.config is not None
-        
+
         # Use persistent context if user_data_dir is configured
         if self.config.monitor.user_data_dir:
             if self.logger:
                 self.logger.info(f"Using persistent browser data directory: {self.config.monitor.user_data_dir}")
-            
+
             context_options = {
                 "headless": self.headless,
             }
             if self.config.monitor.get_proxy_options():
                 context_options["proxy"] = self.config.monitor.get_proxy_options()
-            
+
             # launch_persistent_context returns a context, not a browser
             self.browser_context = self.playwright.chromium.launch_persistent_context(
                 self.config.monitor.user_data_dir, **context_options
             )
             # Create a dummy browser object for compatibility
             class PersistentBrowserWrapper:
-                def __init__(self, context):
+                def __init__(self, context: Any) -> None:
                     self.context = context
-                
-                def new_context(self):
+
+                def new_context(self) -> Any:
                     return self.context
-                
-                def close(self):
+
+                def close(self) -> None:
                     return self.context.close()
-            
+
             self.browser = PersistentBrowserWrapper(self.browser_context)
         else:
             # Standard browser launch
@@ -591,22 +591,22 @@ class MarketplaceMonitor:
                             }
                             if self.config.monitor.get_proxy_options():
                                 context_options["proxy"] = self.config.monitor.get_proxy_options()
-                            
+
                             # launch_persistent_context returns a context, not a browser
                             self.browser_context = self.playwright.chromium.launch_persistent_context(
                                 self.config.monitor.user_data_dir, **context_options
                             )
                             # Create a dummy browser object for compatibility
                             class PersistentBrowserWrapper:
-                                def __init__(self, context):
+                                def __init__(self, context: Any) -> None:
                                     self.context = context
-                                
-                                def new_context(self):
+
+                                def new_context(self) -> Any:
                                     return self.context
-                                
-                                def close(self):
+
+                                def close(self) -> None:
                                     return self.context.close()
-                            
+
                             self.browser = PersistentBrowserWrapper(self.browser_context)
                         else:
                             # Standard browser launch
