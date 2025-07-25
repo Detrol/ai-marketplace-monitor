@@ -352,8 +352,10 @@ class MonitorConfig(BaseConfig):
         return res
 
     def handle_user_data_dir(self: "MonitorConfig") -> None:
+        # Set default if None - same pattern as amm_home
         if self.user_data_dir is None:
-            return
+            self.user_data_dir = str(amm_home / "browser_data")
+
         if not isinstance(self.user_data_dir, str):
             raise ValueError(f"Item {hilight(self.name)} user_data_dir must be a string.")
 
