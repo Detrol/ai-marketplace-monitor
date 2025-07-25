@@ -1,0 +1,56 @@
+#
+# Exempel på konfiguration för svenska Facebook Marketplace
+# Swedish Facebook Marketplace configuration example
+#
+
+#
+# AI-konfiguration
+#
+[ai.openai]
+api_key = 'ditt-openai-api-nyckel'
+model = "gpt-4o"
+
+#
+# Marketplace-konfiguration
+#
+[marketplace.facebook]
+# Aktivera svenska språket för Facebook Marketplace
+language = 'sv'
+search_region = 'swe'
+username = 'ditt-facebook-användarnamn'
+password = 'ditt-facebook-lösenord'
+login_wait_time = 60
+search_interval = '30m'
+max_search_interval = '1h'
+notify = 'användare1'
+
+#
+# Användare och notifieringar
+#
+[user.användare1]
+email = 'din@email.com'
+notify_with = ['gmail']
+
+[notification.gmail]
+smtp_username = 'din@email.com'
+smtp_password = 'ditt-app-lösenord'
+
+#
+# Sökningar
+#
+[item.bil]
+search_phrases = ['volvo', 'saab', 'bil']
+description = "Söker efter svenska bilmärken i bra skick"
+keywords = ['växellåda', 'motor']
+antikeywords = ['skrot', 'trasig', 'olycka']
+search_region = 'swe'
+max_price = '100000 SEK'
+notify = 'användare1'
+
+[item.möbler]
+search_phrases = ['soffa', 'bord', 'stol']
+description = "Söker efter möbler i Stockholm-området"
+search_city = 'stockholm'
+radius = 50
+currency = 'SEK'
+notify = 'användare1'
